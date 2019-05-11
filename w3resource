@@ -1,0 +1,7 @@
+https://www.w3resource.com/sql-exercises/movie-database-exercise/sql-exercise-movie-database-31.php
+
+SELECT rev_name, mov_title 
+FROM reviewer, movie, rating
+WHERE rating.mov_id=movie.mov_id 
+  AND reviewer.rev_id=rating.rev_ID 
+    AND rating.rev_id IN(Select rev_id from rating group by rev_id having count(*)>1)
