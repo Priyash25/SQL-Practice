@@ -1,0 +1,3 @@
+https://www.w3resource.com/sql-exercises/movie-database-exercise/sql-exercise-movie-database-25.php
+
+select mov_title,mov_year,mov_dt_rel, dir_fname, act_fname from movie m, actor a,director d, movie_direction md, movie_cast mc where m.mov_id= md.mov_id and md.dir_id=d.dir_id and mc.mov_id=m.mov_id and mc.act_id=a.act_id and m.mov_id IN (select mov_id from rating where rev_id IN (select rev_id from reviewer where rev_name is NULL))
