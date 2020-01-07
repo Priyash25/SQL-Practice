@@ -1,0 +1,10 @@
+https://www.hackerrank.com/challenges/challenges/problem
+
+SELECT H.hacker_id,H.name, COUNT(C.challenge_id) as Total
+FROM Hackers H INNER JOIN Challenges C ON H.hacker_id=C.hacker_id GROUP BY H.Name,H.hacker_id 
+Having COUNT(C.challenge_id) = (SELECT max(COUNT(C.challenge_id)) FROM Hackers H INNER JOIN Challenges C ON H.hacker_id=C.hacker_id GROUP BY H.Name,H.hacker_id)
+                           OR
+COUNT(C.challenge_id) IN (select t.countable FROM (Select H.Name,H.Hacker_id,COUNT(C.challenge_id) countable FROM Hackers H INNER JOIN Challenges C ON H.hacker_id=C.hacker_id GROUP BY H.Name,H.hacker_id ) t GROUP BY t.countable HAVING COUNT(t.countable)=1)
+                                           https://www.hackerrank.com/challenges/challenges/problemORDER BY Total desc, H.hacker_id;
+                                           
+                                           
