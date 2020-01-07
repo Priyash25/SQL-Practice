@@ -1,0 +1,3 @@
+Select * from (SELECT ROW_NUMBER() OVER (PARTITION BY Occupation ORDER BY Name) rn,Name,Occupation FROM Occupations) As Source 
+PIVOT( MAX([Name]) FOR [occupation] IN ([Doctor],[Professor],[Singer],[Actor]) ) as pvt
+ORDER BY rn
