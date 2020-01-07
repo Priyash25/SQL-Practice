@@ -1,0 +1,10 @@
+
+https://www.hackerrank.com/challenges/the-company/problem
+
+Select CC, CF, COUNT(DISTINCT CLM), COUNT(DISTINCT CSM),COUNT(DISTINCT CMC), COUNT(DISTINCT CE) 
+from(SELECT C.company_code As CC,C.founder As CF, LM.lead_manager_code as CLM, SM.senior_manager_code as CSM, 
+M.manager_code as CMC, E.Employee_code as CE from Company C INNER JOIN 
+Lead_Manager LM ON LM.company_code=C.company_code INNER JOIN
+Senior_Manager SM ON C.company_code=SM.company_code and LM.lead_manager_code=LM.lead_manager_code INNER JOIN 
+Manager M ON C.company_code=M.company_code INNER JOIN 
+Employee E on C.company_code=E.company_code) As Company Group by CC, CF ORDER BY CC
