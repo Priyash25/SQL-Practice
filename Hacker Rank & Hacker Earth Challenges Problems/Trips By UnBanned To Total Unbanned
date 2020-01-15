@@ -1,0 +1,4 @@
+Select Request_at as "Day",ROUND(CAST(SUM(Case WHEN Status<>'completed' THEN 1 ELSE 0 END) as float)/CAST(COUNT(*) as float),2) 
+as "Cancellation Rate" FROM Trips T where Request_at BETWEEN '2013-10-01' and '2013-10-03' and 
+Client_ID IN (Select Users_Id from Users U where U.Users_Id=T.Client_ID and U.Banned='No') and 
+Driver_ID IN (Select Users_Id from Users U where U.Users_Id=T.Driver_ID and U.Banned='No') GROUP BY Request_at 
