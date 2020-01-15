@@ -1,0 +1,7 @@
+https://leetcode.com/problems/exchange-seats/
+
+Select id+1 as id, Student from seat where id%2<>0 and id!=(Select max(id) from seat)
+UNION 
+SELECT id-1 as id, Student from seat where id%2=0
+UNION
+Select id as id, Student from seat where id%2<>0 and id=(Select max(id) from seat)
