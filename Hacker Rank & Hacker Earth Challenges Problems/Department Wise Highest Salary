@@ -1,0 +1,6 @@
+''' https://leetcode.com/problems/department-highest-salary/submissions/  '''
+
+
+Select Department, Employee, Salary FROM (SELECT Department, DENSE_RANK() OVER(PARTITION BY Department ORDER BY Salary DESC) As R, 
+Employee, Salary from (SELECT E.Name As Employee, E.Salary, D.Name as Department FROM Employee E, Department D where E.DepartmentId=D.Id) 
+As Temp1 ) AS Temp2 where Temp2.R=1
