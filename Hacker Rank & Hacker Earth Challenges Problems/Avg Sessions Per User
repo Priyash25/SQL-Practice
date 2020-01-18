@@ -1,0 +1,5 @@
+https://leetcode.com/problems/user-activity-for-the-past-30-days-ii/
+
+Select ISNULL(ROUND((CAST(SUM(average_sessions_per_user) as FLOAT)/CAST(COUNT(user_id) as FLOAT)),2),0)  as "average_sessions_per_user" 
+from (Select user_id, COUNT(DISTINCT session_id) as "average_sessions_per_user" from Activity where activity_date between 
+dateadd(day,-29,'2019-07-27') and '2019-07-27' group by user_id having COUNT(DISTINCT activity_type)>=1) as tempTable
