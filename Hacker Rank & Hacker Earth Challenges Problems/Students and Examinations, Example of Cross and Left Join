@@ -1,0 +1,12 @@
+https://leetcode.com/problems/students-and-examinations/
+
+
+
+
+
+Select Temp1.*,COUNT(E.student_id) as "attended_exams" from (Select S.student_id, S.student_name, SS.subject_name FROM 
+Students S CROSS JOIN Subjects SS) Temp1 LEFT JOIN 
+Examinations E on E.student_id=Temp1.student_id and 
+E.subject_name=Temp1.subject_name
+GROUP BY Temp1.student_id,Temp1.student_name,Temp1.subject_name
+ 
