@@ -1,0 +1,4 @@
+https://leetcode.com/problems/active-businesses/
+
+select business_id from (Select business_id, event_type from Events E1 where occurences > 
+(select AVG(occurences) from Events E2 where E1.event_type=E2.event_type)) as TempTable group by business_id having COUNT(*)>1
