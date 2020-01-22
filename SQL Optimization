@@ -1,0 +1,14 @@
+Lets Say This is My Query TO GET Top REcords or something similar
+
+
+*** SLOW****
+select Name from Candidate where id = (select Top 1 candidateId from Vote group by CandidateId order by Count(candidateId) desc)
+
+***FAST****
+select Name from Candidate where id 
+IN (select top 1 candidateId from Vote group by CandidateId order by Count(candidateId) desc)
+
+
+**** FASTER***
+select Name from Candidate where id 
+IN (select candidateId from Vote group by CandidateId order by Count(candidateId) desc offset 0 rows fetch next 1 rows only)
