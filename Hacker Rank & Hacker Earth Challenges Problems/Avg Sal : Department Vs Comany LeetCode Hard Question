@@ -1,0 +1,12 @@
+
+
+
+With Temp1 as (select substring(cast(pay_date as varchar),1,7) as pay_month,department_id,
+AVG(amount) as avg_month_dept from (select S.employee_id, S.amount, S.pay_date, E.department_id from Salary S 
+INNER JOIN Employee E on E.employee_id=S.employee_id) as TempTable group by substring(cast(pay_date as varchar),1,7),department_id)
+
+
+Select Temp1.pay_month, Temp1.department_id, 
+(CASE WHEN avg_month_dept>avg_month THEN 'higher' WHEN avg_month_dept=avg_month THEN 'same' ELSE 'lower' END) as comparison  from Temp1 
+JOIN (Select substring(cast(pay_date as varchar),1,7) as pay_month, AVG(amount) as avg_month from Salary S 
+group by substring(cast(pay_date as varchar),1,7)) as Temp2 on Temp1.pay_month=Temp2.pay_month 
