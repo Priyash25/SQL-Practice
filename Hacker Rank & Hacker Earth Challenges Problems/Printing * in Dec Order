@@ -1,0 +1,13 @@
+DECLARE @N INT=20
+
+WHILE (@N >0)
+BEGIN
+ select REPLICATE('*'+' ',@N)
+ SET @N=@N-1
+END
+
+
+
+
+
+
