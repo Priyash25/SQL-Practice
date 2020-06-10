@@ -1,0 +1,21 @@
+#### https://leetcode.com/problems/number-of-transactions-per-visit
+
+
+
+With temp2 as 
+(select transactions_count, COUNT(*) as visits_count  
+from (select V.user_id,visit_date,count(transaction_date) as transactions_count 
+ from Visits V LEFT JOIN Transactions T on V.user_id=T.user_id and V.visit_date=T.transaction_date 
+ group by V.user_id,visit_date) temp group by transactions_count ),
+ 
+ max_num as(
+    SELECT max(transactions_count) as num from temp2),
+
+ temp3(num) as(SELECT 0 
+    UNION ALL
+    SELECT num + 1 
+           FROM temp3
+          WHERE num < (select num from max_num))
+         
+         
+select num as transactions_count, ISNULL(visits_count,0) as visits_count from temp3 left join temp2 on temp3.num=temp2.transactions_count 
