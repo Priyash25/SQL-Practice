@@ -1,0 +1,32 @@
+https://leetcode.com/problems/user-purchase-platform/
+
+
+The Goal is to have for each date all three types of platform which is why we create Table m1 and then LEFT JOIN with a table t2
+that takes the date, user and what type of user and his sum which later can be used with the date and platform to find the end result.
+
+## This Solution is Faster Than 90% of Other Solutions
+
+select t.spend_date, t.platform, IFNULL(SUM(t2.amt),0) as total_amount, COUNT( t2.platform)  as total_users 
+FROM
+(
+    select * 
+    FROM
+ (
+    SELECT DISTINCT spend_date, 'mobile' as platform FROM Spending
+    UNION ALL
+    SELECT DISTINCT spend_date, 'desktop' as platform FROM Spending
+    UNION ALL
+    SELECT DISTINCT spend_date, 'both' as platform FROM Spending
+  ) m1 
+) t
+        
+LEFT JOIN 
+
+(select spend_date,user_id, CASE WHEN COUNT(user_id)>1 THEN 'both' ELSE platform END as platform, SUM(amount) amt 
+ FROM Spending 
+ GROUP BY spend_date,user_id
+) t2 
+
+ON t.spend_date=t2.spend_date AND t.platform=t2.platform
+
+GROUP BY t.spend_date, t.platform
