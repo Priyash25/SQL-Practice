@@ -16,5 +16,7 @@ WITH Temp1 as
 SELECT Temp1.pay_month, Temp1.department_id, 
 (CASE WHEN avg_month_dept>avg_month THEN 'higher' WHEN avg_month_dept=avg_month THEN 'same' ELSE 'lower' END) as comparison  
 FROM Temp1 
-JOIN (SELECT SUBSTRING(cast(pay_date as varchar),1,7) as pay_month, AVG(amount) as avg_month from Salary S 
-group by SUBSTRING(cast(pay_date as varchar),1,7)) as Temp2 on Temp1.pay_month=Temp2.pay_month 
+JOIN 
+(SELECT SUBSTRING(cast(pay_date as varchar),1,7) as pay_month, AVG(amount) as avg_month from Salary S 
+GROUP BY 
+SUBSTRING(cast(pay_date as varchar),1,7)) as Temp2 on Temp1.pay_month=Temp2.pay_month 
