@@ -1,0 +1,14 @@
+Ques : https://leetcode.com/problems/number-of-transactions-per-visit/
+
+With recursive 
+cte as (select v.user_id, SUM(CASE when visit_date=transaction_date then 1 else 0 end) transactions_count FROM Visits v LEFT JOIN Transactions t 
+ON v.user_id=t.user_id and v.visit_date=t.transaction_date group by v.user_id, v.visit_date)
+,
+cte2 as (select 0 as cnt
+   union all
+   select cnt + 1
+   from cte2
+   where cnt < (select max(transactions_count) FROM cte)
+        )
+
+select cte2.cnt as transactions_count, COALESCE(COUNT(user_id),0) as visits_count from cte2 left join cte on cnt=transactions_count group by cnt
